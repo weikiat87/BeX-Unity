@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /* <summary>
@@ -8,8 +8,13 @@ using System.Collections;
  */
 
 [RequireComponent (typeof(PlayerMovement))]
+[RequireComponent (typeof(UIHealthBar))]
 public class PlayerController : MonoBehaviour
 {
+	#region Variables
+	[SerializeField] private Transform 		mModelTransform;	// Model Transformation
+	[SerializeField] private UIHealthBar	mHealth;			// Health of the Player
+	#endregion
 
 	#region Singleton
 	private static PlayerController mInstance;		// the Player Controller Instance
@@ -17,10 +22,8 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			if(mInstance == null)
-			{
-				mInstance =	Resources.Load("Player") as PlayerController;
-			}
+			if(mInstance == null)	
+				mInstance = Resources.Load("Player") as PlayerController;
 			return mInstance;
 		}
 	}
@@ -30,31 +33,43 @@ public class PlayerController : MonoBehaviour
 	private void Awake()
 	{
 		// Checking if there are any duplicates
-		if (mInstance == null)		
-		{	
-			mInstance = this;
-		}
+		if(mInstance == null)			mInstance = this;
 		else if(mInstance != this)		
 		{
 			if(mInstance.gameObject != this.gameObject)	Destroy(gameObject);
 			else 										Destroy(this);
 		}
 	}
-	
-	private void Start () 
+	private void Start()
 	{
-		
+		SoundManager.Instance.PlayBGM("Free");				// Play Song
+		mHealth = gameObject.GetComponent<UIHealthBar>();	// Get the Health Script
+		mHealth.DestoryGameObject += DestoryGameObject;		// Attach the Function
 	}
-	
 	// Update is called once per frame
-	private void Update () 
+	private void Update () 	
 	{
-		UpdateMovementHook();	// Firing the Event
+		if (UpdateMovementHook != null) UpdateMovementHook();	/* Firing the Event	*/	
 	}
 	#endregion
 
-	#region Delegates
-	public delegate void UpdateMovementDelegate();			// The function that we will be firing
+	#region Class Function
+	public Transform GetModelTransform()		{	return mModelTransform;			}
+	public void AddHealth(float _value)			{	mHealth.AddHealth(_value);		}
+	public void SubtractHealth(float _value)	{	mHealth.SubtractHealth(_value);	}
+
+	private void DestoryGameObject() 
+	{
+		Debug.Log("You Died!");
+		EffectManager.Instance.PlayExplosion(2.0f,gameObject);
+		if(GameManager.Instance.GetCurrentDifficulty().mHighScore < PointsManager.Instance.CurrentPoints)
+			GameManager.Instance.GetCurrentDifficulty().mHighScore = PointsManager.Instance.CurrentPoints;
+		StartCoroutine( GameManager.Instance.LoadLevel("Main") );
+	}
+	#endregion
+
+	#region Delegate
+	public delegate void UpdateMovementDelegate();			// The function type
 	public event UpdateMovementDelegate UpdateMovementHook;	// The hook that we will be using to at other script
 	#endregion
 }
