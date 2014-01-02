@@ -3,11 +3,12 @@ using System.Collections;
 
 public class ScrollingScript : MonoBehaviour
 {
-	[SerializeField] private Vector3 mStartPos;
-	[SerializeField] private Vector3 mWaitPos;
-	[SerializeField] private Vector3 mEndPos;
+	[SerializeField] private Vector3 mStartPos;		// Starting Position
+	[SerializeField] private Vector3 mWaitPos;		// Waiting Position
+	[SerializeField] private Vector3 mEndPos;		// Ending Position
+
 	private enum mState { start,waiting,wait,end }
-	[SerializeField] private mState mCurrentState = mState.start;
+	private mState mCurrentState = mState.start;
 	private const int SCROLLINGSPEED = 1;
 
 	public IEnumerator Scroll()
@@ -34,7 +35,7 @@ public class ScrollingScript : MonoBehaviour
 			gameObject.transform.parent.GetComponent<ScrollingManager>().IncreaseIndex();
 			yield break;
 		}
-		yield return Scroll();
+		//yield return Scroll();
 	}
 }
 

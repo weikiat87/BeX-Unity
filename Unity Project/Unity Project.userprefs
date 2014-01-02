@@ -1,16 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\UIHealthBar.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\ScrollingManager.cs">
     <Files>
-      <File FileName="Assets\Resources\Script\UIHealthBar.cs" Line="6" Column="13" />
-      <File FileName="Assets\Resources\Script\PlanetManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\PlanetAI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\RotationScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\DespawnTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\HitBoxTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\UIHealthBar.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\MainMenuManager.cs" Line="71" Column="17" />
+      <File FileName="Assets\Resources\Script\ScrollingScript.cs" Line="38" Column="5" />
+      <File FileName="Assets\Resources\Script\ScrollingManager.cs" Line="23" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

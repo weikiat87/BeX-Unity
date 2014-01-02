@@ -9,7 +9,8 @@ using System.Collections;
 public enum PlanetType		{ typeA, typeB, typeC, typeD };
 public enum NoteType		{ typeA, typeB, typeC, typeD };
 public enum DifficultyType	{ easy, normal, hard };
-public enum SoundType 		{ music	,sfx };
+public enum SoundType 		{ music, sfx };
+public enum ScreenType		{ main, game };
 
 public class Global : MonoBehaviour 
 {

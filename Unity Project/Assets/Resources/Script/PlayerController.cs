@@ -42,9 +42,8 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Start()
 	{
-		SoundManager.Instance.PlayBGM("Free");				// Play Song
-		mHealth = gameObject.GetComponent<UIHealthBar>();	// Get the Health Script
-		mHealth.DestoryGameObject += DestoryGameObject;		// Attach the Function
+	mHealth = gameObject.GetComponent<UIHealthBar>();	// Get the Health Script
+		mHealth.DestroyGameObject += DestroyGameObject;		// Attach the Function
 	}
 	// Update is called once per frame
 	private void Update () 	
@@ -58,13 +57,12 @@ public class PlayerController : MonoBehaviour
 	public void AddHealth(float _value)			{	mHealth.AddHealth(_value);		}
 	public void SubtractHealth(float _value)	{	mHealth.SubtractHealth(_value);	}
 
-	private void DestoryGameObject() 
+	private void DestroyGameObject() 
 	{
 		Debug.Log("You Died!");
 		EffectManager.Instance.PlayExplosion(2.0f,gameObject);
-		if(GameManager.Instance.GetCurrentDifficulty().mHighScore < PointsManager.Instance.CurrentPoints)
-			GameManager.Instance.GetCurrentDifficulty().mHighScore = PointsManager.Instance.CurrentPoints;
-		StartCoroutine( GameManager.Instance.LoadLevel("Main") );
+		PointsManager.Instance.UpdateScore();
+		StartCoroutine( GameManager.Instance.LoadLevel(GameManager.Instance.LevelToLoad,ScreenType.main) );
 	}
 	#endregion
 

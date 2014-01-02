@@ -38,7 +38,7 @@ public class UIHealthBar : MonoBehaviour
 			mPercentage = mCurrentHealth / mMaxHealth;
 			if(mCurrentHealth <= 0)	
 			{
-				if(DestoryGameObject != null) DestoryGameObject();
+				if(DestroyGameObject != null) DestroyGameObject();
 			}
 			SetColor();
 			SetRect();
@@ -66,7 +66,7 @@ public class UIHealthBar : MonoBehaviour
 	#endregion
 
 	#region Delegate
-	public delegate void DestoryGameObjectDelegate();
-	public event DestoryGameObjectDelegate DestoryGameObject;
+	public delegate void DestroyGameObjectDelegate();
+	public event DestroyGameObjectDelegate DestroyGameObject;
 	#endregion
 }

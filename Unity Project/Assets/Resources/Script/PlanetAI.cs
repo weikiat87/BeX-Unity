@@ -31,7 +31,7 @@ public class PlanetAI : MonoBehaviour
 		temp.Axis 			= Vector3.up;									// Set Axis
 		temp.RotateSpace 	= Space.Self;									// set rotation space
 		temp.RotationSpeed	= 40.0f;										// set rotation speed
-
+		
 		gameObject.rigidbody.isKinematic	= true;									// set rigid body settings
 		gameObject.rigidbody.useGravity 	= false;								// set rigid body settings
 		gameObject.rigidbody.constraints 	= RigidbodyConstraints.FreezePositionY;	// set rigid body settings

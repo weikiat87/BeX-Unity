@@ -10,7 +10,9 @@ using System.Collections;
 [RequireComponent (typeof(Transition))]
 public class GameManager : MonoBehaviour 
 {
-	[SerializeField] private Difficulty[] mDifficultyList;	// List of Difficulties availdable
+	[SerializeField] private Difficulty[] mDifficultyList;	// List of Difficulties available
+	[SerializeField] private ScreenType mType;				// Screen Type
+	[SerializeField] private string mLevelToLoad;			// Level to load
 	private Difficulty mCurrentDifficulty;					// Current Difficulty
 	private Transition mTransition;							// Transition Controller
 
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
 		mTransition.Init();
 		mTransition.FadeIn();	
 		SetDifficulty(DifficultyType.normal);
+		Type = ScreenType.main;
 	}
 	private void Start()	{	LoadData();	}
 	private void Update()
@@ -47,7 +50,7 @@ public class GameManager : MonoBehaviour
 			if(Application.loadedLevel == 1)
 			{
 				Debug.Log("Quiting Level");
-				StartCoroutine( GameManager.Instance.LoadLevel("Main") );
+				StartCoroutine( LoadLevel(mLevelToLoad,ScreenType.main) );
 			}
 			else
 			{
@@ -59,13 +62,15 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Class Function
-	public IEnumerator LoadLevel(string _levelName)
+	public IEnumerator LoadLevel(string _levelName,ScreenType _type)
 	{
+
 		mTransition.FadeOut();
 		yield return new WaitForSeconds(2.0f);
 		mTransition.FadeIn();
-		if(Application.loadedLevel == 1) SoundManager.Instance.PlayBGM("Free");
-		else							 SoundManager.Instance.PlayBGM("Pamgaea");
+		mType = _type;
+		if(mType == ScreenType.game)	SoundManager.Instance.PlayBGM("Free");
+		else							SoundManager.Instance.PlayBGM("Pamgaea");
 		Application.LoadLevel(_levelName);
 	}
 	public Difficulty GetCurrentDifficulty()	{	return mCurrentDifficulty;	}
@@ -77,7 +82,7 @@ public class GameManager : MonoBehaviour
 			{
 				mCurrentDifficulty = temp;
 				Global.mCurrentDifficulty = mCurrentDifficulty.mDifficulty;
-				ButtonManager.Instance.UpdateDifficultyButtons();
+				if(ButtonManager.Instance != null) ButtonManager.Instance.UpdateDifficultyButtons();
 				return;
 			}
 		}
@@ -90,14 +95,21 @@ public class GameManager : MonoBehaviour
 	public int GetScore(DifficultyType _type)
 	{
 		foreach(Difficulty d in mDifficultyList)
-		{
-			if(d.mDifficulty == _type) return d.mHighScore;
+		{		
+			if(d.mDifficulty == _type) 
+				return d.mHighScore;		
 		}
 		throw new System.ArgumentOutOfRangeException("Invalid Type");
 	}
 
 	public void SaveData()
 	{
+		switch(mCurrentDifficulty.mDifficulty)
+		{
+		case DifficultyType.easy: 	mDifficultyList[0].mHighScore = mCurrentDifficulty.mHighScore;	break;
+		case DifficultyType.normal:	mDifficultyList[1].mHighScore = mCurrentDifficulty.mHighScore;	break;
+		case DifficultyType.hard:	mDifficultyList[2].mHighScore = mCurrentDifficulty.mHighScore;	break;
+		}
 		foreach(Difficulty d in mDifficultyList)
 		{
 			switch(d.mDifficulty)
@@ -130,7 +142,12 @@ public class GameManager : MonoBehaviour
 		Global.mCurrentDifficulty = (DifficultyType) System.Enum.Parse( typeof( DifficultyType ), PlayerPrefs.GetString("Difficulty"));
 		SetDifficulty(Global.mCurrentDifficulty);
 		SoundManager.Instance.SetVolume();
-		ButtonManager.Instance.UpdateDifficultyButtons();
 	}
+	public ScreenType Type
+	{
+		get	{ return mType;		}
+		set	{ mType = value;	}
+	}
+	public string LevelToLoad { get { return mLevelToLoad; } }
 	#endregion
 }

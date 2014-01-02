@@ -8,16 +8,16 @@ public class MainMenuManager : MonoBehaviour
 	protected class Menu
 	{
 		public MainMenuManager.mMenuType mMenuType;
-		public Vector3 mEulerAnglesRotation;
+		public Vector3 mForwardDirection;
 	}
 	#region Variables
 	public enum mMenuType { Main, Option, Credit };
 
-	private Menu mCurrentMenu	= new Menu();
-	private Menu mToMenu 		= new Menu();
+	private Menu mCurrentMenu	= new Menu();			// Current Menu
+	private Menu mToMenu 		= new Menu();			// Switching Menu
 
-	[SerializeField] private Menu[]	mMenuList;
-	[SerializeField] private float 	mRotationSpeed;
+	[SerializeField] private Menu[]	mMenuList;			// Menu List
+	[SerializeField] private float 	mRotationSpeed;		// Rotation Speed
 	#endregion
 
 	#region Singleton
@@ -35,18 +35,14 @@ public class MainMenuManager : MonoBehaviour
 	#region Unity Function
 	private void Awake()
 	{
-		if(mInstance == null)	mInstance = this;
+		if(mInstance == null)		mInstance = this;
 		else if(mInstance != this)
 		{
 			if(mInstance.gameObject != this.gameObject) Destroy(this.gameObject);
 			else 										Destroy(this);
 		}
 	}
-	private void Update()
-	{
-		if(mCurrentMenu.mMenuType != mToMenu.mMenuType)	
-		Transit();
-	}
+	private void Update()	{	if(mCurrentMenu.mMenuType != mToMenu.mMenuType)	Transit();	}
 	#endregion
 
 	#region Class Function
@@ -56,8 +52,8 @@ public class MainMenuManager : MonoBehaviour
 		{
 			if(menu.mMenuType == _type) 
 			{
-				mToMenu = menu;
-				ButtonManager.Instance.EnableButton = false;
+				mToMenu = menu;									// set to menu
+				ButtonManager.Instance.EnableButton = false;	// disable buttons
 				return;
 			}
 		}
@@ -65,10 +61,11 @@ public class MainMenuManager : MonoBehaviour
 
 	private void Transit()
 	{
-		Camera.main.transform.rotation = Quaternion.Lerp(	Camera.main.transform.rotation,
-															Quaternion.FromToRotation(Camera.main.transform.forward,mToMenu.mEulerAnglesRotation),
-															Time.deltaTime * mRotationSpeed);
-		if(Quaternion.Angle(Camera.main.transform.rotation, Quaternion.FromToRotation(Camera.main.transform.forward,mToMenu.mEulerAnglesRotation)) == 0)
+		Camera.main.transform.rotation = Quaternion.Lerp(	Camera.main.transform.rotation,															// camera facing direction	
+		                                                 	Quaternion.FromToRotation(Camera.main.transform.forward,mToMenu.mForwardDirection),		// desired camera facing direction
+															Time.deltaTime * mRotationSpeed);														// rotation speed
+
+		if(Quaternion.Angle(Camera.main.transform.rotation, Quaternion.FromToRotation(Camera.main.transform.forward,mToMenu.mForwardDirection)) == 0)
 		{
 			// Active Buttons
 			ButtonManager.Instance.EnableButton = true;
@@ -76,5 +73,4 @@ public class MainMenuManager : MonoBehaviour
 		}
 	}
 	#endregion
-}
-
+}	

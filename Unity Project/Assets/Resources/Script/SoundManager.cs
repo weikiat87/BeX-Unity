@@ -6,10 +6,10 @@ public class SoundManager : MonoBehaviour
 {
 	[SerializeField] private List<AudioClip> 	mAudioClipList 		= new List<AudioClip>();	// List of Clips
 	[SerializeField] private List<AudioSource>	mAudioSourceList	= new List<AudioSource>();	// List of Source
-	[SerializeField] private GUIText			mTimeLeft;
-	private int 	mMinutes;
-	private int 	mSeconds;
-	private string	mTime;
+	private GUIText		mTimeLeft;
+	private int			mMinutes;
+	private int			mSeconds;
+	private string		mTime;
 	#region Singleton
 	private static SoundManager mInstance;
 	public static SoundManager Instance
@@ -42,17 +42,18 @@ public class SoundManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		PlayBGM("Pamgaea");
+		if(GameManager.Instance.Type == ScreenType.main) PlayBGM("Pamgaea");
+		if(GameManager.Instance.Type == ScreenType.game) PlayBGM("Free");
 	}
 	private void Update()
 	{
-		if(Application.loadedLevel != 0)
+		if(GameManager.Instance.Type == ScreenType.game)
 		{
 			if(!mTimeLeft.enabled) mTimeLeft.enabled = true;
 			if(!mAudioSourceList[0].isPlaying && !Global.mPause)
 			{
-				GameManager.Instance.GetCurrentDifficulty().mHighScore = PointsManager.Instance.CurrentPoints;
-				GameManager.Instance.LoadLevel("Main");
+				PointsManager.Instance.UpdateScore();
+				GameManager.Instance.LoadLevel(GameManager.Instance.LevelToLoad,ScreenType.main);
 			}
 		}
 	}
@@ -95,6 +96,8 @@ public class SoundManager : MonoBehaviour
 			}
 		}
 	}
+
+	// Play Sound
 	public void Play(string _clipName)
 	{
 		for(int i=0;i<mAudioSourceList.Count;i++)
@@ -111,8 +114,9 @@ public class SoundManager : MonoBehaviour
 	#endregion
 
 	#region UI
-	void OnGUI()
+	private void OnGUI()
 	{
+
 		if(mTimeLeft.enabled)
 		{
 			mMinutes = Mathf.FloorToInt((mAudioSourceList[0].clip.length - mAudioSourceList[0].time) / 60);

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PointsManager : MonoBehaviour 
 {
-	private int mPoints;
-	private int mCurrentPoints;
+	private int mNotePoints;					// Note Points
+	private int mCurrentScore;					// Current Score
 	[SerializeField] private GUIText mText;
 	#region Singleton
 	private static PointsManager mInstance;
@@ -27,29 +27,35 @@ public class PointsManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		mPoints = GameManager.Instance.GetCurrentDifficulty().mNotesPoint;
-		mCurrentPoints = 0;
-		mText.text = mCurrentPoints.ToString();
+		mNotePoints		= GameManager.Instance.GetCurrentDifficulty().mNotesPoint;
+		mCurrentScore	= 0;
+		mText			= gameObject.GetComponentInChildren<GUIText>();
+		mText.text		= mCurrentScore.ToString();
 	}
 	#endregion
 
 	#region Class Function
-	public int Points
+	public void UpdateScore()
 	{
-		get {	return mPoints;		}
-		set	{	mPoints = value;	}
+		if(GameManager.Instance.GetCurrentDifficulty().mHighScore < PointsManager.Instance.CurrentScore)
+		{
+			GameManager.Instance.GetCurrentDifficulty().mHighScore = PointsManager.Instance.CurrentScore;
+			GameManager.Instance.SaveData();
+		}
 	}
-	public int CurrentPoints
+	public int NotePoints
 	{
-		get {	return mCurrentPoints;	}
-		set	{	mCurrentPoints = value;	}
+		get {	return mNotePoints;		}
+		set	{	mNotePoints = value;	}
+	}
+	public int CurrentScore
+	{
+		get {	return mCurrentScore;	}
+		set	{	mCurrentScore = value;	}
 	}
 	#endregion
 
 	#region UI
-	private void OnGUI()
-	{
-		mText.text = mCurrentPoints.ToString();
-	}
+	private void OnGUI()	{	mText.text = CurrentScore.ToString();	}
 	#endregion
 }

@@ -12,7 +12,6 @@ public class HitBoxTrigger : MonoBehaviour
 			PlanetAI planet = _c.gameObject.GetComponent<PlanetAI>();
 			PlayerController.Instance.SubtractHealth(planet.Damage);
 			planet.IsEnabled = false;
-
 			StartCoroutine( EffectManager.Instance.PlayExplosion(2.0f,_c.gameObject) );
 		}
 		if(_c.gameObject.GetComponent<NoteAI>())
@@ -32,7 +31,7 @@ public class HitBoxTrigger : MonoBehaviour
 				note.IsEnabled = false;
 
 				StartCoroutine( EffectManager.Instance.PlayFireworks(1.0f) );
-				PointsManager.Instance.CurrentPoints += PointsManager.Instance.Points;
+				PointsManager.Instance.CurrentScore += PointsManager.Instance.NotePoints;
 
 			}
 		}

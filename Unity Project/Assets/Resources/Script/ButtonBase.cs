@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(BoxCollider))]
+[RequireComponent (typeof(TextMesh))]
+[RequireComponent (typeof(MeshRenderer))]
+
 public abstract class ButtonBase : MonoBehaviour
 {
-	[SerializeField] protected Color mHoverColor;
-	[SerializeField] protected Color mNormalColor;
-	[SerializeField] protected Color mClickColor;
-	protected TextMesh 		mTextMesh;
-	protected RaycastHit	mHit;
-	protected bool			mClicked;
-	protected bool 			mHover = false;
+	[SerializeField] protected Color mHoverColor;		// hover color
+	[SerializeField] protected Color mNormalColor;		// normal color
+	[SerializeField] protected Color mClickColor;		// clicked color
+	protected TextMesh 		mTextMesh;					// text mesh
+	protected RaycastHit	mHit;						// ray cast
+	protected bool			mClicked;					// click flag
+	protected bool 			mHover = false;				// hover flag
 	#region Unity Function
 	private void Awake()	{		mTextMesh = gameObject.GetComponent<TextMesh>();	}
 	protected virtual void Start()
@@ -29,9 +33,9 @@ public abstract class ButtonBase : MonoBehaviour
 		{
 			if(mHit.collider.gameObject == this.gameObject)
 			{
-				if(!mHover) SoundManager.Instance.Play("Hover");
-				mHover = true;
-				mTextMesh.color = mHoverColor;
+				if(!mHover) SoundManager.Instance.Play("Hover");	// play sound
+				mHover = true;										// set flag
+				mTextMesh.color = mHoverColor;						// change color
 			}
 		}
 	}

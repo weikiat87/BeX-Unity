@@ -32,17 +32,14 @@ public class ButtonManager : MonoBehaviour
 		}
 		mEnabled = true;
 	}
-	private void Start()	
-	{	
-		SoundManager.Instance.PlayBGM("Pamgaea");	
-		SoundManager.Instance.SetGUI(false);
-	}
 
 	private void Update()
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if(OnHoverHook	 != null) OnHoverHook(ray);
 		if(OnExitHook  	 != null) OnExitHook(ray);
+
+		// Buttons are clickable only if enabled
 		if(mEnabled)
 		{
 			if(OnClickHook	 != null) OnClickHook(ray);
@@ -52,6 +49,7 @@ public class ButtonManager : MonoBehaviour
 	#endregion
 
 	#region Class Function
+	// changing the difficulty colors
 	public void UpdateDifficultyButtons()
 	{
 		for(int i=0;i<mButtonDifficultyList.Count;i++)

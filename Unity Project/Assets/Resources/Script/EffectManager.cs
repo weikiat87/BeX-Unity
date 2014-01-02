@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EffectManager : MonoBehaviour 
 {
-	[SerializeField] private List<GameObject> mList = new List<GameObject>();
+	[SerializeField] private List<GameObject> mList = new List<GameObject>();	// Effects List
 
 	#region Singleton
 	private static EffectManager mInstance;
@@ -30,6 +30,7 @@ public class EffectManager : MonoBehaviour
 			else 										Destroy(this);
 		}
 	}
+
 	#endregion
 
 	#region Class Function

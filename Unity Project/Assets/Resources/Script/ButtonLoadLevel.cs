@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ButtonLoadLevel : ButtonBase
 {
-	[SerializeField] private string mLevelToLoad;
+	[SerializeField] private string 	mLevelToLoad;
+	[SerializeField] private ScreenType	mType;
 	#region Inherited Function
 	protected override void OnRelease (Ray _ray)
 	{
@@ -17,7 +18,7 @@ public class ButtonLoadLevel : ButtonBase
 					{
 						SoundManager.Instance.Play("Select");
 						Debug.Log(gameObject.name + " Release");
-						StartCoroutine(	GameManager.Instance.LoadLevel(mLevelToLoad) );
+						StartCoroutine(	GameManager.Instance.LoadLevel(mLevelToLoad,mType) );
 					}
 				}
 			}
@@ -25,5 +26,3 @@ public class ButtonLoadLevel : ButtonBase
 	}
 	#endregion
 }
-
-			   
