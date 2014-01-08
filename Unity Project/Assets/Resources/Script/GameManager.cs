@@ -39,14 +39,15 @@ public class GameManager : MonoBehaviour
 		mTransition = gameObject.GetComponent<Transition>();
 		mTransition.Init();
 		mTransition.FadeIn();	
-		SetDifficulty(DifficultyType.normal);
 		Type = ScreenType.main;
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 	private void Start()	{	LoadData();	}
 	private void Update()
 	{
 		if(Input.GetKeyUp(KeyCode.Escape))
 		{
+			Debug.Log("TEST");
 			if(Application.loadedLevel == 1)
 			{
 				Debug.Log("Quiting Level");
@@ -69,8 +70,16 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(2.0f);
 		mTransition.FadeIn();
 		mType = _type;
-		if(mType == ScreenType.game)	SoundManager.Instance.PlayBGM("Free");
-		else							SoundManager.Instance.PlayBGM("Pamgaea");
+		if(mType == ScreenType.game)
+		{
+			SoundManager.Instance.SetGUI(true);
+			SoundManager.Instance.PlayBGM("Free");
+		}
+		else						
+		{
+			SoundManager.Instance.SetGUI(false);
+			SoundManager.Instance.PlayBGM("Pamgaea");
+		}
 		Application.LoadLevel(_levelName);
 	}
 	public Difficulty GetCurrentDifficulty()	{	return mCurrentDifficulty;	}
@@ -123,6 +132,7 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("SFX",Global.mSFXOn?1:0);
 		PlayerPrefs.SetString("Difficulty",Global.mCurrentDifficulty.ToString());
 		PlayerPrefs.Save();
+		ButtonManager.Instance.UpdateDifficultyButtons();
 		
 	}
 	public void LoadData()

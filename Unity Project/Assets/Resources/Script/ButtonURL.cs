@@ -21,6 +21,7 @@ public class ButtonURL : ButtonBase
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion

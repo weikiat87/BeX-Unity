@@ -21,7 +21,6 @@ public abstract class ButtonBase : MonoBehaviour
 		ButtonManager.Instance.OnClickHook		+= OnClick;
 		ButtonManager.Instance.OnHoverHook		+= OnHover;
 		ButtonManager.Instance.OnExitHook 		+= OnExit;
-		ButtonManager.Instance.OnReleaseHook	+= OnRelease;
 		mClicked = false;
 	}
 	#endregion
@@ -47,6 +46,7 @@ public abstract class ButtonBase : MonoBehaviour
 			{
 				mClicked = false;
 				ButtonManager.Instance.OnHoverHook += OnHover;
+				ButtonManager.Instance.OnReleaseHook -= OnRelease;
 			}
 			mHover   = false;
 			mTextMesh.color = mNormalColor;
@@ -62,6 +62,7 @@ public abstract class ButtonBase : MonoBehaviour
 				{
 					mClicked = true;
 					ButtonManager.Instance.OnHoverHook -= OnHover;
+					ButtonManager.Instance.OnReleaseHook += OnRelease;
 					mTextMesh.color = mClickColor;
 				}
 			}

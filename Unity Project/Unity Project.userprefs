@@ -1,9 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\ScrollingManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\HitBoxTrigger.cs">
     <Files>
-      <File FileName="Assets\Resources\Script\ScrollingScript.cs" Line="38" Column="5" />
-      <File FileName="Assets\Resources\Script\ScrollingManager.cs" Line="23" Column="4" />
+      <File FileName="Assets\Resources\Script\HitBoxTrigger.cs" Line="14" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

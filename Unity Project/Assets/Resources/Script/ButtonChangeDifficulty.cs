@@ -4,13 +4,13 @@ using System.Collections;
 public class ButtonChangeDifficulty : ButtonBase
 {
 	[SerializeField]private DifficultyType mType;
-	private bool	mSelected;
+	private bool			mSelected;
 	#region Unity Function
 	protected override void Start ()
 	{
 		base.Start ();
-		if(GameManager.Instance.GetCurrentDifficulty().mDifficulty == mType)
-			mSelected = true;
+		if(GameManager.Instance.GetCurrentDifficulty().mDifficulty == mType)			Selected = true;
+		else																			Selected = false;
 		Debug.Log(gameObject.name + " " + mSelected.ToString());
 	}
 	#endregion
@@ -19,9 +19,18 @@ public class ButtonChangeDifficulty : ButtonBase
 	public bool Selected
 	{
 		get {	return mSelected;	}
-		set {	mSelected = value;	}
+		set 
+		{	
+			mSelected = value;
+			SetColor(mSelected);
+		}
 	}
-	public DifficultyType Type	{ get { return mType; } }
+	public DifficultyType Type			{ get { return mType; } }
+	private void SetColor(bool _flag)	
+	{
+		if(_flag)	mTextMesh.color = mClickColor;
+		else  		mTextMesh.color = mNormalColor;
+	}
 	#endregion
 
 	#region Inherited Function
@@ -30,7 +39,7 @@ public class ButtonChangeDifficulty : ButtonBase
 		if(Physics.Raycast(_ray,out mHit))
 		{
 			if(mHit.collider.gameObject == this.gameObject)
-			{
+			{	
 				if(!mHover) SoundManager.Instance.Play("Hover");
 				mHover = true;
 				if(!mSelected)	mTextMesh.color = mHoverColor;
@@ -45,6 +54,7 @@ public class ButtonChangeDifficulty : ButtonBase
 			{
 				mClicked = false;
 				ButtonManager.Instance.OnHoverHook += OnHover;
+				ButtonManager.Instance.OnReleaseHook -= OnRelease;
 			}
 			mHover = false;
 			if(!mSelected)	mTextMesh.color = mNormalColor;
@@ -62,11 +72,14 @@ public class ButtonChangeDifficulty : ButtonBase
 					{
 						SoundManager.Instance.Play("Select");
 						mSelected = true;
+						mTextMesh.color = mClickColor;
 						Debug.Log(gameObject.name + " Release");
 						GameManager.Instance.SetDifficulty(mType);
+						ButtonManager.Instance.UpdateDifficultyButtons();
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion

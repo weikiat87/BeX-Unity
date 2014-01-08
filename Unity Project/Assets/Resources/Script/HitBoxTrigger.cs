@@ -11,6 +11,7 @@ public class HitBoxTrigger : MonoBehaviour
 			Debug.Log("Hit until Planet");
 			PlanetAI planet = _c.gameObject.GetComponent<PlanetAI>();
 			PlayerController.Instance.SubtractHealth(planet.Damage);
+			Handheld.Vibrate();
 			planet.IsEnabled = false;
 			StartCoroutine( EffectManager.Instance.PlayExplosion(2.0f,_c.gameObject) );
 		}
@@ -29,7 +30,6 @@ public class HitBoxTrigger : MonoBehaviour
 					case NoteType.typeD:	EffectManager.Instance.ChangeAuroraWaveColor(Color.red);	break;
 				}
 				note.IsEnabled = false;
-
 				StartCoroutine( EffectManager.Instance.PlayFireworks(1.0f) );
 				PointsManager.Instance.CurrentScore += PointsManager.Instance.NotePoints;
 

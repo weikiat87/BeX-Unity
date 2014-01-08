@@ -36,15 +36,15 @@ public class ButtonManager : MonoBehaviour
 	private void Update()
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		if(OnHoverHook	 != null) OnHoverHook(ray);
-		if(OnExitHook  	 != null) OnExitHook(ray);
 
+		if(OnHoverHook	 != null) OnHoverHook(ray);
 		// Buttons are clickable only if enabled
 		if(mEnabled)
 		{
 			if(OnClickHook	 != null) OnClickHook(ray);
 			if(OnReleaseHook != null) OnReleaseHook(ray);
 		}
+		if(OnExitHook  	 != null) OnExitHook(ray);
 	}
 	#endregion
 

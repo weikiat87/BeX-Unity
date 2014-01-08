@@ -18,9 +18,11 @@ public class ButtonReset : ButtonBase
 						Debug.Log(gameObject.name + " Release");
 						GameManager.Instance.ResetScores();
 						GameManager.Instance.SaveData();
+						mTextMesh.color = mNormalColor;
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion

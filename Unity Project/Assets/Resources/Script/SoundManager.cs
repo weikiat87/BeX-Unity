@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
 
 		mTimeLeft = gameObject.GetComponentInChildren<GUIText>();
 		mTimeLeft.enabled = false;
-		mTimeLeft.text = mAudioSourceList[0].clip.length.ToString();
+		mTimeLeft.text = "";
 	}
 	private void Start()
 	{
@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
 	{
 		if(GameManager.Instance.Type == ScreenType.game)
 		{
-			if(!mTimeLeft.enabled) mTimeLeft.enabled = true;
 			if(!mAudioSourceList[0].isPlaying && !Global.mPause)
 			{
 				PointsManager.Instance.UpdateScore();
@@ -110,7 +109,8 @@ public class SoundManager : MonoBehaviour
 		}
 		throw new System.ArgumentException("Invalid Clip Name: " + _clipName);
 	}
-	public void SetGUI(bool _flag)	{mTimeLeft.enabled = _flag;}
+	public void SetGUI(bool _flag)		{	mTimeLeft.enabled = _flag;	}
+
 	#endregion
 
 	#region UI

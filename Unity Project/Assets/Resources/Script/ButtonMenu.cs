@@ -18,9 +18,11 @@ public class ButtonMenu : ButtonBase
 						SoundManager.Instance.Play("Select");
 						Debug.Log(gameObject.name + " Release");
 						MainMenuManager.Instance.ChangeMenu(mMenuType);
+						mTextMesh.color = mNormalColor;
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion

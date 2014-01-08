@@ -62,7 +62,6 @@ public class EffectManager : MonoBehaviour
 				                                            _object.transform.position.y,
 				                                            _object.transform.position.z);
 				mList[i].SetActive(true);
-				Handheld.Vibrate();
 				yield return new WaitForSeconds(_lastTiming);
 				mList[i].SetActive(false);
 				break;

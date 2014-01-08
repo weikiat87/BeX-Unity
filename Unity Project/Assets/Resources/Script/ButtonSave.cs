@@ -17,9 +17,11 @@ public class ButtonSave : ButtonBase
 						SoundManager.Instance.Play("Select");
 						Debug.Log(gameObject.name + " Release");
 						GameManager.Instance.SaveData();
+						mTextMesh.color = mNormalColor;
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion

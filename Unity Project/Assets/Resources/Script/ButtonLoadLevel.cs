@@ -18,10 +18,12 @@ public class ButtonLoadLevel : ButtonBase
 					{
 						SoundManager.Instance.Play("Select");
 						Debug.Log(gameObject.name + " Release");
+						GameManager.Instance.SaveData();
 						StartCoroutine(	GameManager.Instance.LoadLevel(mLevelToLoad,mType) );
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 	#endregion
