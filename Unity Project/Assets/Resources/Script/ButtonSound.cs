@@ -46,9 +46,12 @@ public class ButtonSound : ButtonBase
 							else 				mMesh.text = "Off";
 						}
 						SoundManager.Instance.SetVolume(mType);
+						mTextMesh.color = mNormalColor;
+						mClicked = false;
 					}
 				}
 			}
+			ButtonManager.Instance.OnReleaseHook -= OnRelease;
 		}
 	}
 }

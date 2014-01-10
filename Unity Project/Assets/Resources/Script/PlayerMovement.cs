@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 			if(xAxisMovement != Vector3.zero  &&	(xAxisMovement.x + gameObject.transform.position.x) > mLowerLimit.x &&
 			   										(xAxisMovement.x + gameObject.transform.position.x) < mUpperLimit.x)
 			{
-				PlayerController.Instance.GetModelTransform().Rotate(new Vector3(0,0,-xAxisMovement.x),Space.Self);
+				PlayerController.Instance.GetModelTransform().Rotate(new Vector3(0,0,-xAxisMovement.x/2),Space.Self);
 				gameObject.transform.Translate(xAxisMovement,Space.Self);
 			}
 			// Check Y Axis
