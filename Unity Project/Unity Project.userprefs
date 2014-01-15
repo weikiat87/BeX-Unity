@@ -1,9 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\HitBoxTrigger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Script\GameManager.cs">
     <Files>
+      <File FileName="Assets\Resources\Script\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Script\Global.cs" Line="1" Column="1" />
       <File FileName="Assets\Resources\Script\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Script\HitBoxTrigger.cs" Line="22" Column="42" />
+      <File FileName="Assets\Resources\Script\HitBoxTrigger.cs" Line="22" Column="15" />
+      <File FileName="Assets\Resources\Script\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Script\ButtonChangeDifficulty.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Script\DespawnTrigger.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

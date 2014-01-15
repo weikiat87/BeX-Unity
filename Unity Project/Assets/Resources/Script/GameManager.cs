@@ -147,9 +147,14 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		Global.mMusicOn 		  = PlayerPrefs.GetInt("Music")==1?true:false;
-		Global.mSFXOn 			  = PlayerPrefs.GetInt("SFX")==1?true:false;
-		Global.mCurrentDifficulty = (DifficultyType) System.Enum.Parse( typeof( DifficultyType ), PlayerPrefs.GetString("Difficulty"));
+		// Added checks to fix start button error
+		if(PlayerPrefs.HasKey("Music")) Global.mMusicOn	= PlayerPrefs.GetInt("Music")==1?true:false;
+		else 							Global.mMusicOn	= true;
+		if(PlayerPrefs.HasKey("SFX"))	Global.mSFXOn	= PlayerPrefs.GetInt("SFX")==1?true:false;
+		else							Global.mSFXOn = true;
+		if(PlayerPrefs.HasKey("Difficulty"))	Global.mCurrentDifficulty = (DifficultyType) System.Enum.Parse( typeof( DifficultyType ), PlayerPrefs.GetString("Difficulty"));
+		else 									Global.mCurrentDifficulty = DifficultyType.normal;
+
 		SetDifficulty(Global.mCurrentDifficulty);
 		SoundManager.Instance.SetVolume();
 	}

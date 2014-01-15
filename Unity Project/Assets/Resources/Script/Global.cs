@@ -50,7 +50,7 @@ public class Global : MonoBehaviour
 		if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
 			Screen.SetResolution(mScreenWidth,mScreenHeight,true);
 		else
-			Screen.SetResolution(800,600,false);
+			Screen.SetResolution(mScreenWidth,mScreenHeight,false);
 	}
 	#endregion
 }
