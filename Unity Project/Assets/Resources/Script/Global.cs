@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 /* <summary>
  * Global Class for some values.
  * </summary>
@@ -12,9 +13,17 @@ public enum DifficultyType	{ easy, normal, hard };
 public enum SoundType 		{ music, sfx };
 public enum ScreenType		{ main, game };
 
+#if UNITY_ANDROID || UNITY_IPHONE
+	public enum AndroidControl	{ accelerometer, drag };
+#endif
 public class Global : MonoBehaviour 
 {
 	#region Variables
+
+	#if UNITY_ANDROID || UNITY_IPHONE
+		public static AndroidControl mControlType			= AndroidControl.drag;
+	#endif	
+	[SerializeField] private List<GameObject> mObjects	= new List<GameObject>();
 	[SerializeField] private int mScreenWidth;		// Screen values
 	[SerializeField] private int mScreenHeight;		// Screen values
 
@@ -48,7 +57,10 @@ public class Global : MonoBehaviour
 		DontDestroyOnLoad(this.gameObject);		// Persistent
 
 		if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+		{
 			Screen.SetResolution(mScreenWidth,mScreenHeight,true);
+			foreach(GameObject g in mObjects)	g.SetActive(true);
+		}
 		else
 			Screen.SetResolution(mScreenWidth,mScreenHeight,false);
 	}

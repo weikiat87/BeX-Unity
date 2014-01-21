@@ -75,7 +75,7 @@ public class ButtonChangeDifficulty : ButtonBase
 						mTextMesh.color = mClickColor;
 						Debug.Log(gameObject.name + " Release");
 						GameManager.Instance.SetDifficulty(mType);
-						ButtonManager.Instance.UpdateDifficultyButtons();
+						GameManager.Instance.SaveData();
 					}
 				}
 			}

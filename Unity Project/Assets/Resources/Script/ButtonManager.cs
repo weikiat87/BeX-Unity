@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class ButtonManager : MonoBehaviour 
 {
 	#region Variables
-	[SerializeField] private List<ButtonChangeDifficulty> mButtonDifficultyList	= new List<ButtonChangeDifficulty>();
+	[SerializeField] private List<ButtonChangeDifficulty>	mButtonDifficultyList	= new List<ButtonChangeDifficulty>();
+	#if UNITY_ANDROID || UNITY_IPHONE
+	[SerializeField] private List<ButtonControl>			mAndroidControlList		= new List<ButtonControl>();
+	#endif
 	private bool mEnabled;
 	#endregion
 
@@ -58,6 +61,20 @@ public class ButtonManager : MonoBehaviour
 			else 															mButtonDifficultyList[i].Selected = false;
 		}
 	}
+	public void UpdateAndroidControlButtons()
+	{
+	#if UNITY_ANDROID || UNITY_IPHONE
+		if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			for(int i=0;i<mAndroidControlList.Count;i++)
+			{
+				if(Global.mControlType == mAndroidControlList[i].Type)	mAndroidControlList[i].Selected = true;
+				else 													mAndroidControlList[i].Selected = false;
+			}
+		}
+	#endif
+	}
+
 	public bool EnableButton
 	{
 		get { return mEnabled;  }

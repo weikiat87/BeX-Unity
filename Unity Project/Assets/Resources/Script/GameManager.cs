@@ -47,8 +47,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(Input.GetKeyUp(KeyCode.Escape))
 		{
-			Debug.Log("TEST");
-			if(Application.loadedLevel == 1)
+			if(mType == ScreenType.game)
 			{
 				Debug.Log("Quiting Level");
 				StartCoroutine( LoadLevel(mLevelToLoad,ScreenType.main) );
@@ -131,9 +130,13 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("Music",Global.mMusicOn?1:0);
 		PlayerPrefs.SetInt("SFX",Global.mSFXOn?1:0);
 		PlayerPrefs.SetString("Difficulty",Global.mCurrentDifficulty.ToString());
+		#if UNITY_ANDROID || UNITY_IPHONE
+		PlayerPrefs.SetString("AndroidControl",Global.mControlType.ToString());
+		#endif
 		PlayerPrefs.Save();
 		ButtonManager.Instance.UpdateDifficultyButtons();
-		
+		ButtonManager.Instance.UpdateAndroidControlButtons();
+
 	}
 	public void LoadData()
 	{
@@ -154,8 +157,12 @@ public class GameManager : MonoBehaviour
 		else							Global.mSFXOn = true;
 		if(PlayerPrefs.HasKey("Difficulty"))	Global.mCurrentDifficulty = (DifficultyType) System.Enum.Parse( typeof( DifficultyType ), PlayerPrefs.GetString("Difficulty"));
 		else 									Global.mCurrentDifficulty = DifficultyType.normal;
-
+		#if UNITY_ANDROID || UNITY_IPHONE
+		if(PlayerPrefs.HasKey("AndroidControl"))	Global.mControlType = (AndroidControl) System.Enum.Parse( typeof( AndroidControl ), PlayerPrefs.GetString("AndroidControl"));
+		else 										Global.mControlType = AndroidControl.drag;
+		#endif
 		SetDifficulty(Global.mCurrentDifficulty);
+		ButtonManager.Instance.UpdateAndroidControlButtons();
 		SoundManager.Instance.SetVolume();
 	}
 	public ScreenType Type

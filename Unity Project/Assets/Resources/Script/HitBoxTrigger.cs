@@ -11,7 +11,9 @@ public class HitBoxTrigger : MonoBehaviour
 			Debug.Log("Hit until Planet");
 			PlanetAI planet = _c.gameObject.GetComponent<PlanetAI>();
 			PlayerController.Instance.SubtractHealth(planet.Damage);
-			//Handheld.Vibrate();
+			#if UNITY_ANDROID || UNITY_IPHONE
+				Handheld.Vibrate();
+			#endif
 			planet.IsEnabled = false;
 			StartCoroutine( EffectManager.Instance.PlayExplosion(2.0f,_c.gameObject) );
 		}
