@@ -6,9 +6,7 @@ public class ButtonManager : MonoBehaviour
 {
 	#region Variables
 	[SerializeField] private List<ButtonChangeDifficulty>	mButtonDifficultyList	= new List<ButtonChangeDifficulty>();
-	#if UNITY_ANDROID || UNITY_IPHONE
 	[SerializeField] private List<ButtonControl>			mAndroidControlList		= new List<ButtonControl>();
-	#endif
 	private bool mEnabled;
 	#endregion
 
@@ -70,6 +68,14 @@ public class ButtonManager : MonoBehaviour
 			{
 				if(Global.mControlType == mAndroidControlList[i].Type)	mAndroidControlList[i].Selected = true;
 				else 													mAndroidControlList[i].Selected = false;
+			}
+		}
+	#elif UNITY_EDITOR || UNITY_STANDALONE
+		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+		{
+			for(int i=0;i<mAndroidControlList.Count;i++)
+			{
+				mAndroidControlList[i].Disable();
 			}
 		}
 	#endif

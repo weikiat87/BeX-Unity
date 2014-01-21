@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System.Collections;
 
-#if UNITY_ANDROID || UNITY_IPHONE
 public class ButtonControl : ButtonBase
 {
 	[SerializeField]private AndroidControl mType;
@@ -12,10 +11,13 @@ public class ButtonControl : ButtonBase
 	#region Unity Function
 	protected override void Start ()
 	{
-		base.Start ();
-		if(Global.mControlType == mType)			Selected = true;
-		else										Selected = false;
-		Debug.Log(gameObject.name + " " + mSelected.ToString());
+		#if UNITY_ANDROID || UNITY_IPHONE
+			base.Start ();
+			if(Global.mControlType == mType)			Selected = true;
+			else										Selected = false;
+		#elif UNITY_EDITOR || UNITY_STANDALONE
+			Disable();
+		#endif
 	}
 	#endregion
 	
@@ -30,6 +32,13 @@ public class ButtonControl : ButtonBase
 		}
 	}
 	public AndroidControl Type			{ get { return mType; } }
+
+	public void Disable()
+	{
+		this.enabled = false;
+		mTextMesh.color = Color.gray;
+	}
+
 	private void SetColor(bool _flag)	
 	{
 		if(_flag)	mTextMesh.color = mClickColor;
@@ -78,8 +87,10 @@ public class ButtonControl : ButtonBase
 						mSelected = true;
 						mTextMesh.color = mClickColor;
 						Debug.Log(gameObject.name + " Release");
+						#if UNITY_ANDROID || UNITY_IPHONE
 						Global.mControlType = mType;
 						GameManager.Instance.SaveData();
+						#endif
 					}
 				}
 			}
@@ -88,4 +99,3 @@ public class ButtonControl : ButtonBase
 	}
 	#endregion
 }
-#endif

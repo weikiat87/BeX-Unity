@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 					Vector3 xAxisMovement	= Vector3.zero;
 					Vector3 yAxisMovement	= Vector3.zero;
 					xAxisMovement			= new Vector3(deltaPos.x * Time.deltaTime*mSpeed/2,0,0);
-					yAxisMovement			= new Vector3(0,deltaPos.y * Time.deltaTime*mSpeed/2,0);
+					yAxisMovement			= new Vector3(0,deltaPos.y * Time.deltaTime*mSpeed,0);
 					// Check X Axis
 					if((xAxisMovement.x + gameObject.transform.position.x) > mLowerLimit.x &&
 					   (xAxisMovement.x + gameObject.transform.position.x) < mUpperLimit.x)
@@ -89,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
 		#if UNITY_STANDALONE || UNITY_EDITOR
 		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
 		{
-			Debug.Log("Test");
 			Vector3 xAxisMovement = Vector3.zero;
 			Vector3 yAxisMovement = Vector3.zero;
 

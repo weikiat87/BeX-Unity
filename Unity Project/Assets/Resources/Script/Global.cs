@@ -12,10 +12,8 @@ public enum NoteType		{ typeA, typeB, typeC, typeD };
 public enum DifficultyType	{ easy, normal, hard };
 public enum SoundType 		{ music, sfx };
 public enum ScreenType		{ main, game };
+public enum AndroidControl	{ accelerometer, drag };
 
-#if UNITY_ANDROID || UNITY_IPHONE
-	public enum AndroidControl	{ accelerometer, drag };
-#endif
 public class Global : MonoBehaviour 
 {
 	#region Variables

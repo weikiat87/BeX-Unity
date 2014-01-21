@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void LoadData()
 	{
+		PlayerPrefs.DeleteAll();
 		for(int i=0; i<mDifficultyList.Length;i++)
 		{
 			switch(mDifficultyList[i].mDifficulty)
