@@ -134,9 +134,11 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetString("AndroidControl",Global.mControlType.ToString());
 		#endif
 		PlayerPrefs.Save();
-		ButtonManager.Instance.UpdateDifficultyButtons();
-		ButtonManager.Instance.UpdateAndroidControlButtons();
-
+		if(ButtonManager.Instance != null)
+		{
+			ButtonManager.Instance.UpdateDifficultyButtons();
+			ButtonManager.Instance.UpdateAndroidControlButtons();
+		}
 	}
 	public void LoadData()
 	{
@@ -163,7 +165,10 @@ public class GameManager : MonoBehaviour
 		else 										Global.mControlType = AndroidControl.drag;
 		#endif
 		SetDifficulty(Global.mCurrentDifficulty);
-		ButtonManager.Instance.UpdateAndroidControlButtons();
+		if(ButtonManager.Instance != null)
+		{
+			ButtonManager.Instance.UpdateAndroidControlButtons();
+		}
 		SoundManager.Instance.SetVolume();
 	}
 	public ScreenType Type
