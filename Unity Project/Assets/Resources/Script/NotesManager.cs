@@ -12,6 +12,9 @@ public class NotesManager : MonoBehaviour
 	[SerializeField] private List<NoteAI> 	mList		= new List<NoteAI>();	// Actual List
 	[SerializeField] private int			mNoteSetSize;						// Number of Sets
 	[SerializeField] private int			mNoteMovementSpeed;
+
+	[SerializeField] private GameObject mPrefabPlayer;
+	private GameObject mPlayer;
 	private	Spawner		mSpawner;	// spawner component
 	#region Singleton
 	private static NotesManager mInstance;
@@ -44,6 +47,7 @@ public class NotesManager : MonoBehaviour
 	}
 	private void Start()
 	{
+
 		mNoteMovementSpeed = GameManager.Instance.GetCurrentDifficulty().mNotesSpeed;
 
 		for(int i=0;i<mNoteSetSize*mPrefabList.Length;i++)
@@ -104,6 +108,7 @@ public class NotesManager : MonoBehaviour
 				}
 			}
 		}
+		
 		foreach(NoteAI note in mList)
 		{
 			// should be part of player sequence

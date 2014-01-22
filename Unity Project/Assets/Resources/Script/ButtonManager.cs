@@ -16,7 +16,7 @@ public class ButtonManager : MonoBehaviour
 	{
 		get
 		{
-			if(mInstance == null)	GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
+			if(mInstance == null && GameObject.Find("ButtonManager")) mInstance = GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
 			return mInstance;
 		}
 	}
@@ -71,7 +71,7 @@ public class ButtonManager : MonoBehaviour
 			}
 		}
 	#elif UNITY_EDITOR || UNITY_STANDALONE
-		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
 		{
 			for(int i=0;i<mAndroidControlList.Count;i++)
 			{
@@ -81,6 +81,7 @@ public class ButtonManager : MonoBehaviour
 	#endif
 	}
 
+	// Accessors for the buttons
 	public bool EnableButton
 	{
 		get { return mEnabled;  }
@@ -88,6 +89,7 @@ public class ButtonManager : MonoBehaviour
 	}
 	#endregion
 
+	//Delegates that we will fire
 	#region Delegate
 	public delegate void OnClickDelegate(Ray _ray);
 	public event OnClickDelegate OnClickHook;

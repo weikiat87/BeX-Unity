@@ -42,17 +42,19 @@ public class SoundManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		if(GameManager.Instance.Type == ScreenType.main) PlayBGM("Pamgaea");
-		if(GameManager.Instance.Type == ScreenType.game) PlayBGM("Free");
+		if(GameManager.Instance.Type == ScreenType.main) PlayBGM("Pamgaea");	// In case we forgot to play the bgm
+		if(GameManager.Instance.Type == ScreenType.game) PlayBGM("Free");		// In case we forgot to play the bgm
 	}
 	private void Update()
 	{
+		// If we are in game
 		if(GameManager.Instance.Type == ScreenType.game)
 		{
+			// check if we are paused or the Song ended
 			if(!mAudioSourceList[0].isPlaying && !Global.mPause)
 			{
-				PointsManager.Instance.UpdateScore();
-				GameManager.Instance.LoadLevel(GameManager.Instance.LevelToLoad,ScreenType.main);
+				PointsManager.Instance.UpdateScore();												//Update Score
+				GameManager.Instance.LoadLevel(GameManager.Instance.LevelToLoad,ScreenType.main);	//Load Level
 			}
 		}
 	}
@@ -64,6 +66,8 @@ public class SoundManager : MonoBehaviour
 		SetVolume(SoundType.music);
 		SetVolume(SoundType.sfx);
 	}
+
+	// Setting Sound Volumes
 	public void SetVolume(SoundType _type)
 	{
 		if(_type == SoundType.music)
@@ -109,14 +113,14 @@ public class SoundManager : MonoBehaviour
 		}
 		throw new System.ArgumentException("Invalid Clip Name: " + _clipName);
 	}
-	public void SetGUI(bool _flag)		{	mTimeLeft.enabled = _flag;	}
-
+	public void SetGUI(bool _flag)		{	mTimeLeft.enabled = _flag;	}		//Setting GUI Text
 	#endregion
 
 	#region UI
 	private void OnGUI()
 	{
 
+		// Displaying the Timer
 		if(mTimeLeft.enabled)
 		{
 			mMinutes = Mathf.FloorToInt((mAudioSourceList[0].clip.length - mAudioSourceList[0].time) / 60);

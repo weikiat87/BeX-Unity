@@ -70,6 +70,7 @@
      <Compile Include="Assets\Resources\Script\ButtonSave.cs" />
      <Compile Include="Assets\Resources\Script\ButtonSound.cs" />
      <Compile Include="Assets\Resources\Script\ButtonURL.cs" />
+     <Compile Include="Assets\Resources\Script\CountDownTimer.cs" />
      <Compile Include="Assets\Resources\Script\DespawnTrigger.cs" />
      <Compile Include="Assets\Resources\Script\Difficulty.cs" />
      <Compile Include="Assets\Resources\Script\EffectManager.cs" />
@@ -94,7 +95,6 @@
      <Compile Include="Assets\Resources\Script\Spawner.cs" />
      <Compile Include="Assets\Resources\Script\Timer.cs" />
      <Compile Include="Assets\Resources\Script\Transition.cs" />
-     <Compile Include="Assets\Resources\Script\TriggerManager.cs" />
      <Compile Include="Assets\Resources\Script\UIHealthBar.cs" />
      <Compile Include="Assets\Resources\Script\Utility.cs" />
      <None Include="Assets\Plugins\Android\facebook\res\values\attrs.xml" />

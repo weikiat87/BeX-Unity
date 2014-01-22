@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Start()
 	{
-	mHealth = gameObject.GetComponent<UIHealthBar>();	// Get the Health Script
+		mHealth = gameObject.GetComponent<UIHealthBar>();	// Get the Health Script
 		mHealth.DestroyGameObject += DestroyGameObject;		// Attach the Function
 	}
 	// Update is called once per frame
@@ -54,9 +54,10 @@ public class PlayerController : MonoBehaviour
 
 	#region Class Function
 	public Transform GetModelTransform()		{	return mModelTransform;			}
-	public void AddHealth(float _value)			{	mHealth.AddHealth(_value);		}
-	public void SubtractHealth(float _value)	{	mHealth.SubtractHealth(_value);	}
+	public void AddHealth(float _value)			{	mHealth.AddHealth(_value);		}	// Adding HP to the Player
+	public void SubtractHealth(float _value)	{	mHealth.SubtractHealth(_value);	}	// Subtracting HP to the Player
 
+	// When the Player Dies
 	private void DestroyGameObject() 
 	{
 		Debug.Log("You Died!");

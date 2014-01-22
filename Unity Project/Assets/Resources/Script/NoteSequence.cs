@@ -7,6 +7,7 @@ public class NoteSequence : MonoBehaviour
 	[SerializeField] private NoteType[]		mSequenceList;						// The Actual List
 	[SerializeField] private List<Texture> 	mGUIList = new List<Texture>();		// Textures
 	[SerializeField] private Vector2		mStartPosition;						// Starting Position
+	[SerializeField] private CountDownTimer mTimer;								// Countdown Timer *HINT* Drag & Drop
 
 	private int 		mCurrentIndex;
 	#region Singleton
@@ -30,18 +31,18 @@ public class NoteSequence : MonoBehaviour
 	}
 	private void Start()
 	{
+		//TODO: Add a way to set your Countdown Timer Actual Timer
+
+		// Getting the Number of sequence per difficulty
 		mSequenceList = new NoteType[GameManager.Instance.GetCurrentDifficulty().mNumberOfSequenceSets];
 		if(mSequenceList.Length == 0)				throw new System.NullReferenceException("PrefabList is Empty");
 		ResetList();
-		switch(mSequenceList[0])
-		{
-		case NoteType.typeA:	EffectManager.Instance.ChangeAuroraWaveColor(Color.cyan);	break;
-		case NoteType.typeB:	EffectManager.Instance.ChangeAuroraWaveColor(Color.yellow);	break;
-		case NoteType.typeC:	EffectManager.Instance.ChangeAuroraWaveColor(Color.green);	break;
-		case NoteType.typeD:	EffectManager.Instance.ChangeAuroraWaveColor(Color.red);	break;
-		}
 
+		// Changing Colors of the Note
+		ChangingColor(0);
 	}
+
+	// Display Purpose
 	private void OnGUI()
 	{
 		Texture image = null;
@@ -68,14 +69,35 @@ public class NoteSequence : MonoBehaviour
 	public void NextNote()
 	{
 		if(++mCurrentIndex == mSequenceList.Length)		ResetSequence();
-		else 											SoundManager.Instance.Play("Right");
+		else
+		{
+			//TODO: Find a way to start the timer and attaching our created function to the CountdownTimer's Function
+			//*HINT* TimerFunctionHook
 
+			SoundManager.Instance.Play("Right");
+		}
 	}
 	public void ResetSequence()
 	{
 		SoundManager.Instance.Play("Clear");
 		ResetList();
 	}
+
+	//TODO: Create a similar function that is firing from the CountDownTimer 
+
+	// Changing the Colors
+	private void ChangingColor(int _index)	                                            
+	{
+			switch(mSequenceList[_index])
+			{
+			case NoteType.typeA:	EffectManager.Instance.ChangeAuroraWaveColor(Color.cyan);	break;
+			case NoteType.typeB:	EffectManager.Instance.ChangeAuroraWaveColor(Color.yellow);	break;
+			case NoteType.typeC:	EffectManager.Instance.ChangeAuroraWaveColor(Color.green);	break;
+			case NoteType.typeD:	EffectManager.Instance.ChangeAuroraWaveColor(Color.red);	break;
+			}
+	}
+
+	private void ResetList(int _index)	{		for(int i=_index;i<mSequenceList.Length;i++)	mSequenceList[i] = Utility.GetRandomEnum<NoteType>();	}
 	private void ResetList()
 	{
 		mCurrentIndex = 0;

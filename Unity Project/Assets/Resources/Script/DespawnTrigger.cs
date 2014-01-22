@@ -8,9 +8,9 @@ public class DespawnTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider _c)
 	{
-		if(_c.gameObject.GetComponent<PlanetAI>())	
+		if(_c.gameObject.GetComponent<PlanetAI>())							// if we hit a planet despawn it
 			_c.gameObject.GetComponent<PlanetAI>().IsEnabled = false;
-		if(_c.gameObject.GetComponent<NoteAI>())
+		if(_c.gameObject.GetComponent<NoteAI>())							// if we hit a note despawn it
 			_c.gameObject.GetComponent<NoteAI>().IsEnabled = false;
 	}
 }

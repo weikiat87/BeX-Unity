@@ -34,6 +34,7 @@ public class EffectManager : MonoBehaviour
 	#endregion
 
 	#region Class Function
+	// Playing our Effect Fireworks
 	public IEnumerator PlayFireworks(float _lastTiming)
 	{
 		for(int i=0;i<mList.Count;i++)
@@ -51,6 +52,7 @@ public class EffectManager : MonoBehaviour
 		}
 	}
 
+	// Playing our Effect Explosion
 	public IEnumerator PlayExplosion(float _lastTiming,GameObject _object)
 	{
 		for(int i=0;i<mList.Count;i++)
@@ -69,6 +71,7 @@ public class EffectManager : MonoBehaviour
 		}
 	}
 
+	// Changing the Colors of the Waves
 	public void ChangeAuroraWaveColor(Color _color)
 	{
 		mList[2].GetComponent<ParticleRenderer>().material.SetColor( "_EmisColor",_color );
