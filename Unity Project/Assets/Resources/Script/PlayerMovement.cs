@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		#endif
 		#if UNITY_STANDALONE || UNITY_EDITOR
-		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+		if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
 		{
 			Vector3 xAxisMovement = Vector3.zero;
 			Vector3 yAxisMovement = Vector3.zero;

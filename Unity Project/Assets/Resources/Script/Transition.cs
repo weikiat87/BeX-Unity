@@ -37,6 +37,7 @@ public class Transition : MonoBehaviour
 	public void FadeOut(float _duration, float _to)
 	{
 		mFadeIn = false;
+		Debug.Log(mFadeIn);
 		mCurrentDuration =  _duration; 										// Set fade duration   
 		mTargetAlpha = _to; 												// Set target alpha  
 		mAlphaDifference = Mathf.Clamp01(mTargetAlpha - mCurrentAlpha); 	// Difference
